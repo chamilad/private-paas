@@ -35,8 +35,10 @@ else
 end
 
 appserver_clean deployment_code do
-	mode 	node[:appserver][:maintenance_mode]
-	target	carbon_home
+	mode 			node[:appserver][:maintenance_mode]
+	target			carbon_home
+	service_code	service_code
+	version 		carbon_version
 end
 
 appserver_initialize deployment_code do
@@ -49,7 +51,7 @@ appserver_initialize deployment_code do
     owner     node[:appserver][:owner]
 end
 
-appserver_deply deployment_code do
+appserver_deploy deployment_code do
 	security 	true
 	owner 		node[:appserver][:owner]
 	group 		node[:appserver][:group]
@@ -59,6 +61,8 @@ end
 appserver_push_templates service_templates do
 	target 		carbon_home
 	directory 	deployment_code
+	owner 		node[:appserver][:owner]
+	group 		node[:appserver][:group]
 end
 
 # appserver_start deployment_code do

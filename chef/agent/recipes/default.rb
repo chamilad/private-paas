@@ -37,6 +37,8 @@ end
 
 agent_push_templates service_templates do
 	target carbon_home
+	owner node[:agent][:owner]
+	group 	node[:agent][:group]
 end
 
 agent_start deployment_code do
